@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>右上角菜单</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="menu-container">
+        <button id="menu-button">&#8942;</button>
+        <div id="menu" class="menu">
+            <a href="#">选项1</a>
+            <a href="#">选项2</a>
+            <a href="#">选项3</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.menu-container {
+    position: relative;
+    display: inline-block;
+    float: right;
+    margin: 20px;
+}
+
+#menu-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.menu a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.menu a:hover {
+    background-color: #ddd;
+}
+
+.menu.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+// script.js
+document.getElementById('menu-button').addEventListener('click', function() {
+    var menu = document.getElementById('menu');
+    menu.classList.toggle('show');
+});
+
+// 点击页面其他区域关闭菜单
+document.addEventListener('click', function(event) {
+    var menu = document.getElementById('menu');
+    var button = document.getElementById('menu-button');
+    if (event.target !== button && !menu.contains(event.target)) {
+        menu.classList.remove('show');
+    }
+});
